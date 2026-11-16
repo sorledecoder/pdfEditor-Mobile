@@ -1,7 +1,7 @@
 {
   "name": "PDF Editor & OCR",
   "short_name": "PDF Editor",
-   "id": "./index.html",
+ 
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
