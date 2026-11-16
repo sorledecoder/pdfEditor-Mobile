@@ -5,15 +5,18 @@
 <!-- ==========================================
        FAVICON / BROWSER TAB ICON (OIP logo)
   ========================================== -->
-  <link rel="icon" type="image/png" href="PDF.ico" />
-  <link rel="shortcut icon" type="image/png" href="PDF.ico" />
+  <link rel="manifest" href="./manifest.json">
 
-  <!-- ==========================================
-       APPLE TOUCH ICON (iPhone/iPad home screen)
-  ========================================== -->
-  <link rel="apple-touch-icon" href="PDF-192.png" />
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#1a1a2e" />
+  <link rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./assets/icon-192.png">
+
+  <link rel="apple-touch-icon"
+      href="./assets/icon-192.png">
+
+  <meta name="theme-color"
+      content="#ffffff">
   <link rel="stylesheet" href="style.css" />
   <script>
   /* ---- Install button + service worker (inline so nothing can be stale/missing) ---- */
@@ -144,11 +147,36 @@ label.chk{display:inline-flex;gap:6px;align-items:center;color:var(--m);cursor:p
  .hm{display:none}#top{gap:6px;padding-left:8px;padding-right:8px}
 }
 .sw{width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--b);padding:0;cursor:pointer;flex:none}
-</style></head><body>
+</style></head>
+<script src="./install.js"></script>
+<body>
 <div id="app">
 <header id="top"><button class="btn ib only-m" onclick="$('#side').classList.toggle('open')" title="Pages" data-ic="pages"></button>
-<div class="brand"><span class="logo">PDF</span><span id="fname">PDF Editor</span></div><div class="grow"></div>
-<div id="install-container"><button id="install-btn" class="install-button" type="button" title="Install app"><span>📲</span><span class="itxt">Install</span></button></div>
+<div class="brand">
+
+<img src="icon-192.png"
+     alt="PDF Editor"
+     width="28"
+     height="28">
+<span id="fname">
+PDF Editor & OCR
+</span>
+
+</div>
+<div id="install-container">
+<button id="install-btn"
+        class="install-button"
+        type="button"
+        title="Install app">
+
+<img src="icon-192.png"
+     alt="Install"
+     width="20"
+     height="20">
+
+<span class="itxt">Install</span>
+</button>
+</div>
 <div class="seg"><button onclick="undo()" title="Undo (Ctrl+Z)" data-ic="undo"></button><button onclick="redo()" title="Redo (Ctrl+Y)" data-ic="redo"></button></div>
 <div class="seg hm"><button onclick="zm(.8)" title="Zoom out" data-ic="minus"></button><button id="zl" onclick="fit()" title="Fit width" style="min-width:56px">100%</button><button onclick="zm(1.25)" title="Zoom in" data-ic="plus"></button></div>
 <button class="btn hm" onclick="fi.click()"><i data-ic="folder"></i>Open</button>
@@ -162,11 +190,13 @@ label.chk{display:inline-flex;gap:6px;align-items:center;color:var(--m);cursor:p
 <main id="stage"><div id="empty"><i data-ic="file"></i><h2>Open a PDF to start</h2><p>Edit text, swap images, sign, remove watermarks. Everything stays on your device and works offline.</p><button class="btn pri" onclick="fi.click()">Choose PDF</button></div><canvas id="cv" hidden></canvas></main>
 <div id="card"></div></div></div>
 <div id="toast"></div>
-<div id="dlg"><div class="modal" id="dm"><div class="mh" id="dh"><h3 id="dt">Edit text</h3><span>⠿ drag</span></div><div id="dinfo" class="dinfo"></div><textarea id="dta" spellcheck="false"></textarea><div class="row"><span style="color:var(--m);margin-right:auto;font-size:12px">Live on the page · drag the page box or this panel · spaces are kept exactly · Ctrl+Enter applies</span><button class="btn" onclick="dlgDone(null)">Cancel</button><button class="btn pri" onclick="dlgDone($('#dta').value)">Apply</button></div></div></div>
+<div id="dlg"><div class="modal" id="dm"><div class="mh" id="dh"><h3 id="dt">Edit text</h3><span>⠿ drag</span></div><div id="dinfo" class="dinfo"></div><textarea id="dta" spellcheck="false"></textarea><div class="row"><span style="color:var(--m);margin-right:auto;font-size:12px">Live on the page · drag the page box or this panel · spaces are kept exactly · Ctrl+Enter applies</span><button class="btn" onclick="dlgDone(null)">Cancel</button>
+<button class="btn pri" onclick="dlgDone($('#dta').value)">Apply</button></div></div></div>
 <div id="sg"><div class="modal"><h3>New signature</h3><canvas id="pad" width="800" height="300"></canvas>
 <div class="row" style="justify-content:flex-start"><input type="color" id="ink" value="#10206b" title="Ink color"><button class="btn" onclick="padClear()">Clear</button><button class="btn" onclick="si.click()"><i data-ic="image"></i>From photo</button><span class="grow"></span><button class="btn" onclick="$('#sg').classList.remove('show')">Close</button><button class="btn pri" onclick="padSave()">Save</button></div></div></div>
 <input type="file" id="fi" accept=".pdf,application/pdf" hidden><input type="file" id="pf" accept="image/*" hidden><input type="file" id="si" accept="image/*" hidden><input type="file" id="ffi" accept=".ttf,.otf,.woff" multiple hidden>
-<script>/**
+<script>
+/**
  * @licstart The following is the entire license notice for the
  * JavaScript code in this page
  *

@@ -8,8 +8,8 @@ self.addEventListener('install', event => {
                 './index.html',
                 './manifest.json',
                 './install.js',
-                './assets/PDF-192.png',
-                './assets/PDF-512.png'
+                './icon-192.png',
+                './icon-512.png'
             ])
         )
     );
