@@ -1,16 +1,27 @@
-let deferredPrompt;
+let deferredPrompt = null;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+const installButton =
+document.getElementById('install-btn');
 
-    const btn = document.getElementById('installBtn');
-    if (btn) btn.hidden = false;
+window.addEventListener(
+'beforeinstallprompt',
+event => {
+
+    event.preventDefault();
+
+    deferredPrompt = event;
+
+    if (installButton) {
+
+        installButton.hidden = false;
+
+    }
+
 });
 
-document.addEventListener('click', async (e) => {
-
-    if (e.target.id !== 'installBtn') return;
+installButton?.addEventListener(
+'click',
+async () => {
 
     if (!deferredPrompt) return;
 
@@ -20,9 +31,31 @@ document.addEventListener('click', async (e) => {
 
     deferredPrompt = null;
 
-    e.target.hidden = true;
+    installButton.hidden = true;
+
+});
+
+window.addEventListener(
+'appinstalled',
+() => {
+
+    if (installButton) {
+
+        installButton.hidden = true;
+
+    }
+
 });
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
+
+    window.addEventListener(
+    'load',
+    () => {
+
+        navigator.serviceWorker
+        .register('./sw.js');
+
+    });
+
 }
